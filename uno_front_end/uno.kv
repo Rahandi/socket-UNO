@@ -1,0 +1,45 @@
+#:kivy 1.8.0
+#: import FadeTransition kivy.uix.screenmanager.FadeTransition
+
+ScreenManagement:
+    transition: FadeTransition()
+    LoginPage:
+    WaitingPage:
+    StartPage:
+    GamePage:
+
+<LoginPage>:
+    name: "login_page"
+    BoxLayout:
+        orientation: "vertical"
+        padding: [10,50,50,10]
+        spacing: 50
+        
+        Label:
+            text: "UNO"
+        
+        BoxLayout:
+            orientation: "vertical"
+            TextInput:
+                id: username
+        BoxLayout:
+            orientation: "vertical"
+            Button:
+                text: "Enter"
+                on_release: root.change_screen()
+
+<StartPage>:
+    name: "start_page"
+    Button:
+        text: "Start"
+        on_release: app.root.current = "game_page"
+
+<WaitingPage>:
+    name: "waiting_page"
+    Label:
+        text: "Waiting..."
+
+<GamePage>:
+    name: "game_page"
+    Label:
+        text: "UNO"
