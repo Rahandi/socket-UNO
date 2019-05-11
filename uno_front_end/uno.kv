@@ -10,6 +10,12 @@ ScreenManagement:
 
 <LoginPage>:
     name: "login_page"
+    # canvas.before:
+    #     Color:
+    #         rgba: 0.2,0.2,1,1
+    #     Rectangle:
+    #         pos: self.pos
+    #         size: self.size
     BoxLayout:
         orientation: "vertical"
         padding: [20,40,10,100]
@@ -19,9 +25,9 @@ ScreenManagement:
             anchor_y: "top"
             
             Image:
-                source: "assets/logo.png"
+                source: "assets/uno_logo.png"
                 size_hint: None, None
-                size: 200, 200
+                size: 250, 250
         
         AnchorLayout:
             anchor_x: "center"
@@ -35,7 +41,7 @@ ScreenManagement:
         
         AnchorLayout:
             anchor_x: "center"
-            anchor_y: "center"
+            anchor_y: "bottom"
 
             TextInput:
                 id: username
@@ -43,6 +49,7 @@ ScreenManagement:
                 padding_x: [20,20]
                 padding_y: [10,0]
                 multiline: False
+                pos_hint: {"bottom": 1}
 
         AnchorLayout:
             anchor_x: "center"
