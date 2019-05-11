@@ -12,7 +12,7 @@ ScreenManagement:
     name: "login_page"
     BoxLayout:
         orientation: "vertical"
-        padding: [10,50,50,10]
+        padding: [20,40,10,100]
         spacing: 20
         AnchorLayout:
             anchor_x: "center"
@@ -26,12 +26,12 @@ ScreenManagement:
         AnchorLayout:
             anchor_x: "center"
             anchor_y: "center"
+            padding: [10,180,10,10]
             Label:
                 text: "Insert Username:"
                 color: (1,1,1,1)
                 font_size: "20sp"
                 size_hint: 0.5, 0.3
-                pos_hint: {'top' : 0.65}
         
         AnchorLayout:
             anchor_x: "center"
@@ -40,17 +40,18 @@ ScreenManagement:
             TextInput:
                 id: username
                 size_hint: (.3, .4)
-                height: 200
-                width: 500
+                padding_x: [20,20]
+                padding_y: [10,0]
+                multiline: False
+
         AnchorLayout:
             anchor_x: "center"
             anchor_y: "bottom"
 
             Button:
                 text: "Enter"
-                size_hint: (.5, .5)
-                height: 200
-                width: 500
+                size_hint: (.4, .5)
+                pos_hint: {'x': None, 'y': 1}
                 on_release: root.change_screen()
 
 <StartPage>:
