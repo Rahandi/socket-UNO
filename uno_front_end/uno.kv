@@ -13,19 +13,44 @@ ScreenManagement:
     BoxLayout:
         orientation: "vertical"
         padding: [10,50,50,10]
-        spacing: 50
+        spacing: 20
+        AnchorLayout:
+            anchor_x: "center"
+            anchor_y: "top"
+            
+            Image:
+                source: "assets/logo.png"
+                size_hint: None, None
+                size: 200, 200
         
-        Label:
-            text: "UNO"
+        AnchorLayout:
+            anchor_x: "center"
+            anchor_y: "center"
+            Label:
+                text: "Insert Username:"
+                color: (1,1,1,1)
+                font_size: "20sp"
+                size_hint: 0.5, 0.3
+                pos_hint: {'top' : 0.65}
         
-        BoxLayout:
-            orientation: "vertical"
+        AnchorLayout:
+            anchor_x: "center"
+            anchor_y: "center"
+
             TextInput:
                 id: username
-        BoxLayout:
-            orientation: "vertical"
+                size_hint: (.3, .4)
+                height: 200
+                width: 500
+        AnchorLayout:
+            anchor_x: "center"
+            anchor_y: "bottom"
+
             Button:
                 text: "Enter"
+                size_hint: (.5, .5)
+                height: 200
+                width: 500
                 on_release: root.change_screen()
 
 <StartPage>:

@@ -3,6 +3,7 @@ from kivy.uix.label import Label
 from kivy.config import Config
 from kivy.lang import Builder
 from kivy.uix.button import Button
+from kivy.uix.image import Image
 from kivy.uix.screenmanager import ScreenManager, Screen, FadeTransition
 
 class LoginPage(Screen):
@@ -24,7 +25,6 @@ class GamePage(Screen):
 
 class ScreenManagement(ScreenManager):
     pass
-
 
 # Config.set('kivy','window_icon','path/to/icon.ico')
 
