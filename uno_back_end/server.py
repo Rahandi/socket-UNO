@@ -22,9 +22,9 @@ def get_message(turn):
             print(message)
             return message['action']
 
-def generate_data():
+def generate_data(error=None, drawed=None):
     data = {}
-    data['turn'] = game.turn
+    data['turn'] = id_to_username[game.turn]
     for index in range(len(id_to_username)):
         data[id_to_username[index]] = {
             'total' : len(game.players[index]),
@@ -32,6 +32,8 @@ def generate_data():
         }
     data['current'] = game.current_card
     data['rank'] = rank
+    data['error'] = error
+    data['drawed'] = drawed
     data['end'] = game.end
     return data
 
@@ -91,7 +93,7 @@ def play_game(embo):
             if game.draw_flag == 0:
                 if user_input.lower() == 'draw':
                     drawed = game.draw_card(game.turn, 1)
-                    send_drawed = {'drawed':drawed}
+                    send_drawed = generate_data(drawed=drawed)
                     send_drawed = json.dumps(send_drawed)
                     if game.check_cards_current([drawed]):
                         list_of_client[game.turn].send(send_drawed.encode('utf-8'))
@@ -159,6 +161,7 @@ while True:
     list_of_client.append(conn)
     message = conn.recv(2048)
     message = message.decode('utf-8')
+    print(message + ' joined')
     username_to_id[message] = len(username_to_id)
     id_to_username.append(message)
     game.add_player()
