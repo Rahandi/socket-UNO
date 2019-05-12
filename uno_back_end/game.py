@@ -50,7 +50,7 @@ class Game:
         arr_type = []
         t = 0
         for a in range(len(cards)):
-            type, _ = cards[a].split('_')
+            type, _, _ = cards[a].split('_')
             arr_type.append(type)
         for i in range(len(arr_type)):
             if i > 0:
@@ -62,8 +62,8 @@ class Game:
             return False
             
     def check_cards_current(self, cards):
-        current_type, current_color = self.current_card.split('_')
-        check_type, check_color = cards[0].split('_')
+        current_type, current_color, _ = self.current_card.split('_')
+        check_type, check_color, _ = cards[0].split('_')
         if check_color == 'wild':
             return True
         if check_color != current_color and check_type != current_type:
@@ -75,12 +75,12 @@ class Game:
         for type in self.card_types:
             for color in self.card_color:
                 card = type + '_' + color
-                card_deck.append(card)
+                card_deck.append(card + '_1')
                 if type != '0':
-                    card_deck.append(card)
+                    card_deck.append(card + '_2')
         for wild in self.wild_cards:
-            for _ in range(4):
-                card_deck.append(wild)
+            for number in range(4):
+                card_deck.append(wild + '_' + str(number+1))
         random.shuffle(card_deck)
         self.deck = card_deck
 
@@ -88,7 +88,7 @@ class Game:
         if not self.check_cards(cards) or not self.check_cards_current(cards):
             print('cards not allowed')
             return False
-        type, color = cards[0].split('_')
+        type, color, _ = cards[0].split('_')
         change_card = cards[-1]
         if color == 'wild':
             color = function(*args)
@@ -136,7 +136,7 @@ class Game:
     def find_index_cards_by_color(self, cards, colors):
         found = []
         for iterate in range(len(cards)):
-            _, color = cards[iterate].split('_')
+            _, color, _ = cards[iterate].split('_')
             if color in colors:
                 found.append(iterate)
         return found
@@ -144,7 +144,7 @@ class Game:
     def find_index_cards_by_type(self, cards, types):
         found = []
         for iterate in range(len(cards)):
-            type, _ = cards[iterate].split('_')
+            type, _, _ = cards[iterate].split('_')
             if type in types:
                 found.append(iterate)
         return found
