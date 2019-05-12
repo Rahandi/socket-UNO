@@ -34,6 +34,7 @@ def generate_data(error=None, drawed=None):
     data['rank'] = rank
     data['error'] = error
     data['drawed'] = drawed
+    data['draw_flag'] = game.draw_flag
     data['end'] = game.end
     return data
 
@@ -116,7 +117,7 @@ def play_game(embo):
             if game.draw_flag != 0:
                 for item in card_number:
                     if item not in allowed_index:
-                        sends = {'error': 'cards not allowed'}
+                        sends = generate_data(error='cards not allowed')
                         list_of_client[game.turn].send(json.dumps(sends).encode('utf-8'))
                         continue
 
@@ -124,7 +125,7 @@ def play_game(embo):
                 game.take_out_card(current_player, card_number)
                 game.change_turn()
             else:
-                sends = {'error': 'cards not allowed'}
+                sends = generate_data(error='cards not allowed')
                 list_of_client[game.turn].send(json.dumps(sends).encode('utf-8'))
         except:
             pass

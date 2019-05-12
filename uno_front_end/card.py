@@ -22,6 +22,10 @@ class Cards:
                 self.cards[name] = Card(self.pygame, self.screen, os.path.join(path, f))
                 self.cards[name].name = name
 
+    def reset_size(self):
+        for _, value in self.cards.items():
+            value.scale(1)
+
 class Card:
     def __init__(self, pygame_object, screen_object, image_path):
         self.pygame = pygame_object
