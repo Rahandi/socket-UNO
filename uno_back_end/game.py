@@ -167,7 +167,7 @@ class Game:
     def starting_card(self):
         while True:
             card = self.deck.pop()
-            if card not in self.wild_cards:
+            if 'wild' not in card:
                 self.current_card = card
                 self.graveyard.append(card)
                 return
