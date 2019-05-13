@@ -87,14 +87,20 @@ background = pygame.image.load('assets/bg.png')
 background = pygame.transform.scale(background, (1200, 676))
 waiting = pygame.image.load('assets/waiting.png')
 waiting = pygame.transform.scale(waiting, (1200, 676))
-
+# load asset npc
 kiri = pygame.image.load('assets/kiri.png')
 kanan = pygame.image.load('assets/kanan.png')
 atas = pygame.image.load('assets/atas.png')
-
-kiri = pygame.transform.scale(kiri, (60, 90))
-kanan = pygame.transform.scale(kanan, (60, 90))
-atas = pygame.transform.scale(atas, (90, 60))
+kiri2 = pygame.image.load('assets/kiri.png')
+kanan2 = pygame.image.load('assets/kanan.png')
+atas2 = pygame.image.load('assets/atas.png')
+# width, height npc
+kiri = pygame.transform.scale(kiri, (90, 120))
+kanan = pygame.transform.scale(kanan, (90, 120))
+atas = pygame.transform.scale(atas, (120, 90))
+kiri2 = pygame.transform.scale(kiri, (90, 120))
+kanan2 = pygame.transform.scale(kanan, (90, 120))
+atas2 = pygame.transform.scale(atas, (120, 90))
 
 cards = Cards(pygame, screen)
 cards.load('assets/PNGs/new/')
@@ -136,10 +142,13 @@ while(True):
         screen.blit(background, (0, 0))
         turn_text = font.render(game_status['turn'], False, (0,0,0))
         screen.blit(turn_text, (0,0))
-
-        screen.blit(kiri, (10, 200))
-        screen.blit(atas, (200, 10))
-        screen.blit(kanan, (1130, 200))
+        # posisi kartu npc
+        screen.blit(kiri, (200, 150))
+        screen.blit(kiri2, (200, 300))
+        screen.blit(atas, (400, 50))
+        screen.blit(atas2, (600, 50))
+        screen.blit(kanan, (850, 150))
+        screen.blit(kanan2, (850, 300))
 
         hand = game_status[username]['cards']
         hand = [cards[text] for text in hand]
