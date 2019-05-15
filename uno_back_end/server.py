@@ -30,6 +30,7 @@ def generate_data(error=None, drawed=None):
             'total' : len(game.players[index]),
             'cards' : game.players[index]
         }
+    data['total_player'] = len(game.players)
     data['current'] = game.current_card
     data['rank'] = rank
     data['error'] = error

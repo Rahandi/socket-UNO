@@ -143,12 +143,18 @@ while(True):
         turn_text = font.render(game_status['turn'], False, (0,0,0))
         screen.blit(turn_text, (0,0))
         # posisi kartu npc
-        screen.blit(kiri, (200, 150))
-        screen.blit(kiri2, (200, 300))
-        screen.blit(atas, (400, 50))
-        screen.blit(atas2, (600, 50))
-        screen.blit(kanan, (850, 150))
-        screen.blit(kanan2, (850, 300))
+        if game_status['total_player'] > 1:
+            screen.blit(kiri, (200, 150))
+        if game_status['total_player'] > 2:
+            screen.blit(atas, (400, 50))
+        if game_status['total_player'] > 3:
+            screen.blit(kanan, (850, 150))
+        if game_status['total_player'] > 4:
+            screen.blit(kiri2, (200, 300))
+        if game_status['total_player'] > 5:
+            screen.blit(atas2, (600, 50))
+        if game_status['total_player'] > 6:
+            screen.blit(kanan2, (850, 300))
 
         hand = game_status[username]['cards']
         hand = [cards[text] for text in hand]
@@ -179,6 +185,10 @@ while(True):
             blue = Button(pygame, screen, 'assets/PNGs/new/blue_free.png', 550, 323)
             green = Button(pygame, screen, 'assets/PNGs/new/green_free.png', 650, 323)
             red = Button(pygame, screen, 'assets/PNGs/new/red_free.png', 700, 323)
+            yellow.scale(60, 90)
+            blue.scale(60, 90)
+            green.scale(60, 90)
+            red.scale(60, 90)
             yellow.draw()
             blue.draw()
             green.draw()
@@ -188,6 +198,10 @@ while(True):
             blue = Button(pygame, screen, 'assets/PNGs/new/blue_draw-four.png', 550, 323)
             green = Button(pygame, screen, 'assets/PNGs/new/green_draw-four.png', 650, 323)
             red = Button(pygame, screen, 'assets/PNGs/new/red_draw-four.png', 700, 323)
+            yellow.scale(60, 90)
+            blue.scale(60, 90)
+            green.scale(60, 90)
+            red.scale(60, 90)
             yellow.draw()
             blue.draw()
             green.draw()
@@ -224,15 +238,19 @@ while(True):
                     if yellow.check_clicked():
                         send = 'yellow'
                         message.put(send)
+                        select_color = 0
                     elif blue.check_clicked():
                         send = 'blue'
                         message.put(send)
+                        select_color = 0
                     elif green.check_clicked():
                         send = 'green'
                         message.put(send)
+                        select_color = 0
                     elif red.check_clicked():
                         send = 'red'
                         message.put(send)
+                        select_color = 0
                 else:
                     for index in range(len(hand)):
                         if game_status['draw_flag'] == 1:
