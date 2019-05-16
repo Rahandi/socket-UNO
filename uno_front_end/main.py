@@ -9,6 +9,8 @@ from card import Cards
 from button import Button
 from queue import LifoQueue
 
+tanda = 0
+
 #TKINTER PART
 def get_input():
     global input_username, root, username
@@ -39,6 +41,8 @@ client.send(username.encode('utf-8'))
 player_id = client.recv(2048).decode('utf-8')
 def send_to_server():
     while True:
+        if tanda:
+            break
         while message.not_empty:
             send_message = {
                 'username' : username,
@@ -50,6 +54,8 @@ def send_to_server():
 def receive_from_server():
     global game_status
     while True:
+        if tanda:
+            break
         data = client.recv(2048)
         data = data.decode('utf-8')
         data = json.loads(data)
@@ -62,6 +68,8 @@ receive.start()
 
 #PYGAME PART
 def render_hand(hand):
+    if len(hand) == 0:
+        return
     slide = 25
     x = width/2 - (hand[0].width + ((len(hand)/2) * slide))
     for index in range(len(hand)):

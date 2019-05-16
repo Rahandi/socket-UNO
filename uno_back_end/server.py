@@ -3,6 +3,7 @@ from _thread import start_new_thread
 from queue import LifoQueue
 import socket
 import json
+import operator
 
 server = socket.socket()
 server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -32,12 +33,21 @@ def generate_data(error=None, drawed=None):
         }
     data['total_player'] = len(game.players)
     data['current'] = game.current_card
-    data['rank'] = rank
     data['error'] = error
     data['drawed'] = drawed
     data['draw_flag'] = game.draw_flag
+    data['score_board'] = generate_score()
     data['end'] = game.end
+    print(data)
     return data
+
+def generate_score():
+    used = {}
+    for key, value in rank.items():
+        if key in username_to_id:
+            used[key] = value
+    rank_sorted = sorted(used.items(), key=operator.itemgetter(1), reverse=True)
+    return rank_sorted
 
 def load_rank():
     global rank
