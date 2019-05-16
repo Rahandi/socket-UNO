@@ -145,11 +145,24 @@ while(True):
                     pygame.quit()
                     exit()
     else:
+        if game_status['end']:
+            pygame.display.flip()
+            screen.fill([255,255,255])
+            bg_skor = pygame.image.load('assets/scoreboard.jpg')
+            screen.blit(bg_skor, (0, 0))
+            user_rank = '1' # font.render(text, False, (0,0,0)) -> get from json data
+            user_name = 'yoshi'
+            user_score = 978
+            screen.blit(user_rank, (500,300))
+            screen.blit(user_name, (525,300))
+            screen.blit(user_score, (600,300))
+            # scoreboard layout
+            continue
         pygame.display.flip()
         screen.fill([255,255,255])
         screen.blit(background, (0, 0))
-        turn_text = font.render(game_status['turn'], False, (0,0,0))
-        screen.blit(turn_text, (0,0))
+        turn_text = font.render(game_status['turn'] + '\'s turn', False, (0,0,0))
+        screen.blit(turn_text, (10,10))
         # posisi kartu npc
         if game_status['total_player'] > 1:
             screen.blit(kiri, (200, 150))
