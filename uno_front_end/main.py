@@ -8,6 +8,7 @@ import time
 from card import Cards
 from button import Button
 from queue import LifoQueue
+from pygame.locals import *
 
 tanda = 0
 
@@ -150,18 +151,27 @@ while(True):
             screen.fill([255,255,255])
             bg_skor = pygame.image.load('assets/scoreboard.jpg')
             screen.blit(bg_skor, (0, 0))
-            user_rank = '1' # font.render(text, False, (0,0,0)) -> get from json data
-            user_name = 'yoshi'
-            user_score = 978
-            screen.blit(user_rank, (500,300))
-            screen.blit(user_name, (525,300))
-            screen.blit(user_score, (600,300))
-            # scoreboard layout
-            continue
+            user_rank = font.render('1', False, (0,0,0))
+            user_name = font.render('yoshi', False, (0,0,0))
+            user_score = font.render('978', False, (0,0,0))
+            screen.blit(user_rank, (400,200))
+            screen.blit(user_name, (450,200))
+            screen.blit(user_score, (700,200))
+            user_rank = font.render('2', False, (0,0,0))
+            user_name = font.render('randi', False, (0,0,0))
+            user_score = font.render('830', False, (0,0,0))
+            screen.blit(user_rank, (400,250))
+            screen.blit(user_name, (450,250))
+            screen.blit(user_score, (700,250))
+            while True:
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT or event.type == KEYDOWN and event.key == K_f:
+                        pygame.quit()
+                        exit()
         pygame.display.flip()
         screen.fill([255,255,255])
         screen.blit(background, (0, 0))
-        turn_text = font.render(game_status['turn'] + '\'s turn', False, (0,0,0))
+        turn_text = font.render(game_status['turn'] + '\'s turn', False, (255,255,255))
         screen.blit(turn_text, (10,10))
         # posisi kartu npc
         if game_status['total_player'] > 1:
