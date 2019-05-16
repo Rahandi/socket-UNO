@@ -90,9 +90,11 @@ class Game:
             return False
         type, color, _ = cards[0].split('_')
         change_card = cards[-1]
+        print(change_card)
         if color == 'wild':
             color = function(*args)
             change_card = change_card.replace('wild', color)
+        print(change_card)
         if type == 'reverse':
             for _ in range(len(cards)):
                 self.reverse()

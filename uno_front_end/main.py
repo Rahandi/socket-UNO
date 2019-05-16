@@ -108,7 +108,7 @@ cards.load('assets/PNGs/new/')
 submit_button = Button(pygame, screen, 'assets/submit.png', 1050, 600)
 start_button = Button(pygame, screen, 'assets/start.png', 831, 465)
 draw_button = Button(pygame, screen, 'assets/draw.png', 950, 600)
-skip_button = Button(pygame, screen, 'assets/skip.png', 1050, 600)
+skip_button = Button(pygame, screen, 'assets/skip.png', 950, 600)
 
 submit_button.scale(94,40)
 draw_button.scale(90,40)
@@ -181,10 +181,10 @@ while(True):
                 oke_button = Button(pygame, screen, 'assets/submit.png', 570, (height/2)+(text_height/2)+20)
                 oke_button.draw()
         elif select_color == 1:
-            yellow = Button(pygame, screen, 'assets/PNGs/new/yellow_free.png', 500, 323)
+            yellow = Button(pygame, screen, 'assets/PNGs/new/yellow_free.png', 450, 323)
             blue = Button(pygame, screen, 'assets/PNGs/new/blue_free.png', 550, 323)
             green = Button(pygame, screen, 'assets/PNGs/new/green_free.png', 650, 323)
-            red = Button(pygame, screen, 'assets/PNGs/new/red_free.png', 700, 323)
+            red = Button(pygame, screen, 'assets/PNGs/new/red_free.png', 750, 323)
             yellow.scale(60, 90)
             blue.scale(60, 90)
             green.scale(60, 90)
@@ -194,10 +194,10 @@ while(True):
             green.draw()
             red.draw()
         elif select_color == 2:
-            yellow = Button(pygame, screen, 'assets/PNGs/new/yellow_draw-four.png', 500, 323)
+            yellow = Button(pygame, screen, 'assets/PNGs/new/yellow_draw-four.png', 450, 323)
             blue = Button(pygame, screen, 'assets/PNGs/new/blue_draw-four.png', 550, 323)
             green = Button(pygame, screen, 'assets/PNGs/new/green_draw-four.png', 650, 323)
-            red = Button(pygame, screen, 'assets/PNGs/new/red_draw-four.png', 700, 323)
+            red = Button(pygame, screen, 'assets/PNGs/new/red_draw-four.png', 750, 323)
             yellow.scale(60, 90)
             blue.scale(60, 90)
             green.scale(60, 90)
@@ -212,6 +212,7 @@ while(True):
                 submit_button.draw()
                 draw_button.draw()
             else:
+                submit_button.draw()
                 skip_button.draw()
 
         for event in pygame.event.get():
@@ -224,8 +225,11 @@ while(True):
                         if yes_button.check_clicked():
                             send = 'yes'
                             cards.reset_size()
-                            if 'wild' in drawed.name:
-                                select_color = True
+                            if 'free_wild' in drawed.name:
+                                select_color = 1
+                            elif 'draw-four_wild' in drawed.name:
+                                select_color = 2
+                            game_status['drawed'] = None
                             message.put(send)
                         elif no_button.check_clicked():
                             send = 'no'
@@ -283,6 +287,21 @@ while(True):
                             send = 'draw'
                             message.put(send)
                     else:
+                        if submit_button.check_clicked():
+                            active = {}
+                            send = []
+                            for index in range(len(hand)):
+                                if hand[index].status == 1:
+                                    active[index] = hand[index].status_time
+                            active = sorted(active.items(), key=operator.itemgetter(1))
+                            for item in active:
+                                send.append(str(item[0]))
+                            send = ','.join(send)
+                            message.put(send)
+                            if 'free_wild' in hand[int(send[-1])].name:
+                                select_color = 1
+                            elif 'draw-four_wild' in hand[int(send[-1])].name:
+                                select_color = 2
                         if skip_button.check_clicked():
                             send = 'skip'
                             message.put(send)
