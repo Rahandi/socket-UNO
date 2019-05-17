@@ -8,7 +8,6 @@ import time
 from card import Cards
 from button import Button
 from queue import LifoQueue
-from pygame.locals import *
 
 tanda = 0
 
@@ -42,8 +41,6 @@ client.send(username.encode('utf-8'))
 player_id = client.recv(2048).decode('utf-8')
 def send_to_server():
     while True:
-        if tanda:
-            break
         while message.not_empty:
             send_message = {
                 'username' : username,
@@ -51,16 +48,18 @@ def send_to_server():
             }
             client.send(json.dumps(send_message).encode('utf-8'))
             time.sleep(1)
+        if tanda:
+            break
 
 def receive_from_server():
     global game_status
     while True:
-        if tanda:
-            break
         data = client.recv(2048)
         data = data.decode('utf-8')
         data = json.loads(data)
         game_status = data
+        if tanda:
+            break
 
 send = threading.Thread(target=send_to_server)
 receive = threading.Thread(target=receive_from_server)
@@ -147,25 +146,23 @@ while(True):
                     exit()
     else:
         if game_status['end']:
-            pygame.display.flip()
-            screen.fill([255,255,255])
-            bg_skor = pygame.image.load('assets/scoreboard.jpg')
-            screen.blit(bg_skor, (0, 0))
-            user_rank = font.render('1', False, (0,0,0))
-            user_name = font.render('yoshi', False, (0,0,0))
-            user_score = font.render('978', False, (0,0,0))
-            screen.blit(user_rank, (400,200))
-            screen.blit(user_name, (450,200))
-            screen.blit(user_score, (700,200))
-            user_rank = font.render('2', False, (0,0,0))
-            user_name = font.render('randi', False, (0,0,0))
-            user_score = font.render('830', False, (0,0,0))
-            screen.blit(user_rank, (400,250))
-            screen.blit(user_name, (450,250))
-            screen.blit(user_score, (700,250))
             while True:
+                tanda = 1
+                pygame.display.flip()
+                screen.fill([255,255,255])
+                bg_skor = pygame.image.load('assets/scoreboard.jpg')
+                screen.blit(bg_skor, (0, 0))
+                h = 200
+                for num, record in enumerate(game_status['score_board']):
+                    rank = font.render(str(num+1), False, (0,0,0))
+                    name = font.render(str(record[0]), False, (0,0,0))
+                    score = font.render(str(record[1]), False, (0,0,0))
+                    screen.blit(rank, (400, h))
+                    screen.blit(name, (450, h))
+                    screen.blit(score, (700, h))
+                    h += 50
                 for event in pygame.event.get():
-                    if event.type == pygame.QUIT or event.type == KEYDOWN and event.key == K_f:
+                    if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_f:
                         pygame.quit()
                         exit()
         pygame.display.flip()
@@ -173,7 +170,6 @@ while(True):
         screen.blit(background, (0, 0))
         turn_text = font.render(game_status['turn'] + '\'s turn', False, (255,255,255))
         screen.blit(turn_text, (10,10))
-        # posisi kartu npc
         if game_status['total_player'] > 1:
             screen.blit(kiri, (200, 150))
         if game_status['total_player'] > 2:
