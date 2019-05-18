@@ -150,7 +150,7 @@ while(True):
                 tanda = 1
                 pygame.display.flip()
                 screen.fill([255,255,255])
-                bg_skor = pygame.image.load('assets/scoreboard.jpg')
+                bg_skor = pygame.image.load('assets/scoreboard.png')
                 screen.blit(bg_skor, (0, 0))
                 h = 200
                 for num, record in enumerate(game_status['score_board']):

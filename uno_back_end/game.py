@@ -130,8 +130,6 @@ class Game:
 
     def execute_draw_stack(self):
         self.draw_card(self.turn, self.draw_stack)
-        if self.draw_flag == 2:
-            self.current_card = self.current_card.replace('draw-four', 'free')
         self.draw_stack = 0
         self.draw_flag = 0
 
