@@ -61,11 +61,11 @@ def save_rank():
     file.close()
 
 def convert_rank():
+    for player in id_to_username:
+        if player not in rank:
+            rank[player] = 0
     for player_id, value in game.rank.items():
-        if id_to_username[int(player_id)] not in rank:
-            rank[id_to_username[int(player_id)]] = value
-        else:
-            rank[id_to_username[int(player_id)]] += value
+        rank[id_to_username[int(player_id)]] += value
 
 def play_game(embo):
     while True:

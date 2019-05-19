@@ -184,7 +184,8 @@ class Game:
                 for item in self.players:
                     if len(item) != 0:
                         count += 1
-                self.rank[player_id] = count / len(self.players)
+                point = (count / len(self.players)) * 100
+                self.rank[player_id] = int(point)
 
 if __name__ == '__main__':
     game = Game()
@@ -258,4 +259,4 @@ if __name__ == '__main__':
         if game.do_cards(selected_cards, input, 'color: '):
             game.take_out_card(current_player, card_number)
             game.change_turn()
-        print('=================================================')
+        print('=================================================') []
