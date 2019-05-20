@@ -170,6 +170,8 @@ while(True):
         screen.blit(background, (0, 0))
         turn_text = font.render(game_status['turn'] + '\'s turn', False, (255,255,255))
         screen.blit(turn_text, (10,10))
+        player_text = font.render('You are ' + username, False, (255,255,255))
+        screen.blit(player_text, (10,50))
         if game_status['total_player'] > 1:
             screen.blit(kiri, (200, 150))
         if game_status['total_player'] > 2:

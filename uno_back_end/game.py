@@ -259,4 +259,4 @@ if __name__ == '__main__':
         if game.do_cards(selected_cards, input, 'color: '):
             game.take_out_card(current_player, card_number)
             game.change_turn()
-        print('=================================================') []
+        print('=================================================')
