@@ -34,7 +34,7 @@ root.mainloop()
 
 #SOCKET PART
 client = socket.socket()
-client.connect(('127.0.0.1', 8443))
+client.connect(('10.151.33.10', 8443))
 message = LifoQueue()
 game_status = None
 client.send(username.encode('utf-8'))
@@ -165,6 +165,11 @@ while(True):
                     if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_f:
                         pygame.quit()
                         exit()
+        if len(game_status[username]['cards']) == 0:
+            # player have no cards
+            pygame.display.flip()
+            screen.fill([0,0,0])
+            continue
         pygame.display.flip()
         screen.fill([255,255,255])
         screen.blit(background, (0, 0))

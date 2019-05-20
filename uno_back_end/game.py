@@ -160,7 +160,7 @@ class Game:
         self.change_turn()
 
     def spread_card(self):
-        for _ in range(1):
+        for _ in range(7):
             for iterate in range(len(self.players)):
                 self.players[iterate].append(self.deck.pop())
 
