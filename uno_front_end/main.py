@@ -169,6 +169,8 @@ while(True):
             # player have no cards
             pygame.display.flip()
             screen.fill([0,0,0])
+            bg_wait = pygame.image.load('assets/bg_wait.png')
+            screen.blit(bg_wait, (0, 0))
             continue
         pygame.display.flip()
         screen.fill([255,255,255])
