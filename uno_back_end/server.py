@@ -7,7 +7,7 @@ import operator
 
 server = socket.socket()
 server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-server.bind(('127.0.0.1', 8443))
+server.bind(('0.0.0.0', 8443))
 server.listen(10)
 list_of_client = []
 username_to_id = {}
@@ -61,11 +61,11 @@ def save_rank():
     file.close()
 
 def convert_rank():
+    for player in id_to_username:
+        if player not in rank:
+            rank[player] = 0
     for player_id, value in game.rank.items():
-        if id_to_username[int(player_id)] not in rank:
-            rank[id_to_username[int(player_id)]] = value
-        else:
-            rank[id_to_username[int(player_id)]] += value
+        rank[id_to_username[int(player_id)]] += value
 
 def play_game(embo):
     while True:

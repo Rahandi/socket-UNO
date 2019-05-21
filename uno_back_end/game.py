@@ -160,7 +160,7 @@ class Game:
         self.change_turn()
 
     def spread_card(self):
-        for _ in range(1):
+        for _ in range(7):
             for iterate in range(len(self.players)):
                 self.players[iterate].append(self.deck.pop())
 
@@ -184,7 +184,8 @@ class Game:
                 for item in self.players:
                     if len(item) != 0:
                         count += 1
-                self.rank[player_id] = count / len(self.players)
+                point = (count / len(self.players)) * 100
+                self.rank[player_id] = int(point)
 
 if __name__ == '__main__':
     game = Game()
