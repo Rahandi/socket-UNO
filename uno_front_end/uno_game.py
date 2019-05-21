@@ -21,6 +21,7 @@ from queue import LifoQueue
 tanda = 0
 username = ''
 
+#KIVY PART
 class LoginPage(Screen):
     user_id = 1
     def change_screen(self, *args):
@@ -30,19 +31,8 @@ class LoginPage(Screen):
             App.get_running_app().stop()
             Window.close()
 
-class WaitingPage(Screen):
-    pass
-
-class StartPage(Screen):
-    pass
-
-class GamePage(Screen):
-    pass
-
 class ScreenManagement(ScreenManager):
     pass
-
-# Config.set('kivy','window_icon','path/to/icon.ico')
 
 game = Builder.load_file("uno.kv")
 
@@ -51,6 +41,7 @@ class MainGame(App):
         return game
 
 MainGame().run()
+
 #SOCKET PART
 client = socket.socket()
 client.connect(('127.0.0.1', 8443))
