@@ -36,10 +36,21 @@ def generate_data(error=None, drawed=None):
     data['error'] = error
     data['drawed'] = drawed
     data['draw_flag'] = game.draw_flag
+    data['rank'] = generate_rank()
     data['score_board'] = generate_score()
     data['end'] = game.end
     print(data)
     return data
+
+def generate_rank():
+    current_rank = {}
+    for player in id_to_username:
+        if player not in current_rank:
+            current_rank[player] = 0
+    for key, value in game.rank.items():
+        current_rank[id_to_username[key]] = value
+    current_rank = sorted(current_rank.items(), key=operator.itemgetter(1), reverse=True)
+    return current_rank
 
 def generate_score():
     used = {}
