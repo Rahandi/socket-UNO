@@ -34,7 +34,7 @@ root.mainloop()
 
 #SOCKET PART
 client = socket.socket()
-client.connect(('10.151.33.10', 8443))
+client.connect(('127.0.0.1', 8443))
 message = LifoQueue()
 game_status = None
 client.send(username.encode('utf-8'))
@@ -86,6 +86,7 @@ def render_hand(hand):
 pygame.init()
 pygame.font.init()
 font = pygame.font.SysFont('Comic Sans MS', 30)
+font_small = pygame.font.SysFont('Comic Sans MS', 20)
 
 width, height = 1200, 676
 screen = pygame.display.set_mode((width, height))
@@ -153,14 +154,26 @@ while(True):
                 bg_skor = pygame.image.load('assets/scoreboard.png')
                 screen.blit(bg_skor, (0, 0))
                 h = 200
-                for num, record in enumerate(game_status['score_board']):
-                    rank = font.render(str(num+1), False, (0,0,0))
+                for num, record in enumerate(game_status['rank']):
+                    rank = font.render(str(num+1) + '.', False, (0,0,0))
                     name = font.render(str(record[0]), False, (0,0,0))
                     score = font.render(str(record[1]), False, (0,0,0))
                     screen.blit(rank, (400, h))
                     screen.blit(name, (450, h))
                     screen.blit(score, (700, h))
                     h += 50
+                lifetime_text = 'Lifetime Score'
+                lt_text = font.render(lifetime_text, False, (0,0,0))
+                screen.blit(lt_text, (850, 200))
+                h = 250
+                for num, record in enumerate(game_status['score_board']):
+                    rank = font_small.render(str(num+1) + '.', False, (0,0,0))
+                    name = font_small.render(str(record[0]), False, (0,0,0))
+                    score = font_small.render(str(record[1]), False, (0,0,0))
+                    screen.blit(rank, (880, h))
+                    screen.blit(name, (900, h))
+                    screen.blit(score, (980, h))
+                    h += 30
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_f:
                         pygame.quit()
@@ -315,10 +328,13 @@ while(True):
                                 send.append(str(item[0]))
                             send = ','.join(send)
                             message.put(send)
-                            if 'free_wild' in hand[int(send[-1])].name:
-                                select_color = 1
-                            elif 'draw-four_wild' in hand[int(send[-1])].name:
-                                select_color = 2
+                            try:
+                                if 'free_wild' in hand[int(send[-1])].name:
+                                    select_color = 1
+                                elif 'draw-four_wild' in hand[int(send[-1])].name:
+                                    select_color = 2
+                            except:
+                                pass
                         if draw_button.check_clicked():
                             send = 'draw'
                             message.put(send)
@@ -334,10 +350,13 @@ while(True):
                                 send.append(str(item[0]))
                             send = ','.join(send)
                             message.put(send)
-                            if 'free_wild' in hand[int(send[-1])].name:
-                                select_color = 1
-                            elif 'draw-four_wild' in hand[int(send[-1])].name:
-                                select_color = 2
+                            try:
+                                if 'free_wild' in hand[int(send[-1])].name:
+                                    select_color = 1
+                                elif 'draw-four_wild' in hand[int(send[-1])].name:
+                                    select_color = 2
+                            except:
+                                pass
                         if skip_button.check_clicked():
                             send = 'skip'
                             message.put(send)
