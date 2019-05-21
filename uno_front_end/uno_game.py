@@ -9,10 +9,12 @@ from kivy.uix.screenmanager import ScreenManager, Screen, FadeTransition
 class LoginPage(Screen):
     user_id = 1
     def change_screen(self, *args):
-        if self.user_id == 1:
-            App.get_running_app().root.current = "start_page"
-        else:
-            App.get_running_app().root.current = "waiting_page"
+        username = self.username_text_input.text
+        if(username != ""):
+            if self.user_id == 1:
+                App.get_running_app().root.current = "start_page"
+            else:
+                App.get_running_app().root.current = "waiting_page"
 
 class WaitingPage(Screen):
     pass
